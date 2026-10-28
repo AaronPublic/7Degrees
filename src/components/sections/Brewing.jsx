@@ -44,7 +44,7 @@ export default function Brewing() {
           </div>
 
           <div className="flex flex-col items-start">
-            <p className="text-sm font-semibold tracking-widest text-ink-muted uppercase">{brewing.eyebrow}</p>
+            <p className="text-sm font-semibold tracking-widest text-accent-500 uppercase">{brewing.eyebrow}</p>
             <h2 id="brew-title" className="mt-3 text-3xl font-extrabold tracking-tight text-balance md:text-5xl">
               {brewing.title}
             </h2>

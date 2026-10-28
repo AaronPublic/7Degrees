@@ -29,7 +29,7 @@ export default function PouringCup({ className }) {
 
       <g className="intro-cup">
         <ellipse cx="120" cy="288" rx="78" ry="8" fill="#0a0a0a" opacity="0.1" />
-        <path d="M178 160C216 160 216 232 172 234" stroke="#dcdcdc" strokeWidth="12" strokeLinecap="round" fill="none" />
+        <path d="M178 160C216 160 216 232 172 234" stroke="#e6d8c6" strokeWidth="12" strokeLinecap="round" fill="none" />
         <path d={GLASS} fill="#ffffff" fillOpacity="0.7" />
 
         <line

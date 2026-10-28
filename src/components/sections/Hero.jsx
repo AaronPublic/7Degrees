@@ -60,14 +60,16 @@ function HeroBackground() {
   return (
     <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
       <img
-        src="/Images/Cover.jpg"
+        src="/Images/Cover-1600.jpg"
+        srcSet="/Images/Cover-900.jpg 900w, /Images/Cover-1600.jpg 1600w, /Images/Cover-2400.jpg 2400w"
+        sizes="100vw"
         alt=""
-        width="2752"
-        height="1536"
+        width="2400"
+        height="1340"
         fetchPriority="high"
         className="size-full object-cover object-[70%_center]"
       />
-      <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/65 to-black/45 lg:bg-linear-to-r lg:from-black/85 lg:via-black/60 lg:to-black/25" />
+      <div className="absolute inset-0 bg-linear-to-b from-roast-950/80 via-roast-950/65 to-roast-950/45 lg:bg-linear-to-r lg:from-roast-950/85 lg:via-roast-950/60 lg:to-roast-950/25" />
     </div>
   )
 }

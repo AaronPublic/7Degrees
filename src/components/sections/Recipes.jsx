@@ -32,12 +32,12 @@ function offsetOf(i, active, n) {
   return d > n / 2 ? d - n : d
 }
 
-/** Coverflow pose for a slide `d` steps from center. */
-function poseOf(d) {
+/** Coverflow pose for a slide `d` steps from center, shifted by `dragPx` while swiping. */
+function poseOf(d, dragPx = 0) {
   const abs = Math.abs(d)
   const turn = Math.sign(d) * Math.min(abs, 2)
   return {
-    transform: `translateX(${d * 62}%) translateZ(${-abs * 180}px) rotateY(${-turn * 24}deg) scale(${abs ? 0.8 : 1})`,
+    transform: `translateX(calc(${d * 62}% + ${dragPx}px)) translateZ(${-abs * 180}px) rotateY(${-turn * 24}deg) scale(${abs ? 0.8 : 1})`,
     opacity: abs === 0 ? 1 : abs === 1 ? 0.6 : abs === 2 ? 0.22 : 0,
     zIndex: 10 - abs,
   }
@@ -59,7 +59,9 @@ function RoundButton({ label, onClick, children }) {
 export default function Recipes() {
   const n = slides.length
   const reducedMotion = usePrefersReducedMotion()
-  const [stageRef, inView] = useInView({ threshold: 0.3 })
+  // Follows the stage in and out of view, so the carousel only turns while someone can see it
+  const [stageRef, inView] = useInView({ threshold: 0.3, once: false })
+  const [dragPx, setDragPx] = useState(null) // live swipe offset; null when not dragging
   const [active, setActive] = useState(0)
   const [playing, setPlaying] = useState(true)
   const [held, setHeld] = useState(false) // hovered or focused: hold still
@@ -70,10 +72,11 @@ export default function Recipes() {
   const go = (i) => setActive(((i % n) + n) % n)
 
   useEffect(() => {
-    if (!autoplay || !inView || held) return
+    const dragging = dragPx != null
+    if (!autoplay || !inView || held || dragging) return
     const timer = setTimeout(() => setActive((a) => (a + 1) % n), AUTO_MS)
     return () => clearTimeout(timer)
-  }, [autoplay, inView, held, active, n])
+  }, [autoplay, inView, held, dragPx, active, n])
 
   // Keep the active flavor chip in view on narrow screens (scrolls the row only, never the page)
   useEffect(() => {
@@ -132,8 +135,17 @@ export default function Recipes() {
             onPointerDown={(event) => {
               drag.current = { x: event.clientX, moved: false }
             }}
+            // Cups follow the finger/mouse while swiping, then snap to the next or previous one
+            onPointerMove={(event) => {
+              const { x } = drag.current
+              if (x == null) return
+              const dx = event.clientX - x
+              if (dragPx == null && Math.abs(dx) > 6) event.currentTarget.setPointerCapture(event.pointerId)
+              if (dragPx != null || Math.abs(dx) > 6) setDragPx(dx * 0.8)
+            }}
             onPointerUp={(event) => {
               const { x } = drag.current
+              setDragPx(null)
               if (x == null) return
               const dx = event.clientX - x
               drag.current = { x: null, moved: Math.abs(dx) > SWIPE_PX }
@@ -141,6 +153,7 @@ export default function Recipes() {
             }}
             onPointerCancel={() => {
               drag.current = { x: null, moved: false }
+              setDragPx(null)
             }}
           >
             {slides.map((slide, i) => {
@@ -156,10 +169,11 @@ export default function Recipes() {
                   onClick={() => !isActive && !drag.current.moved && go(i)}
                   className={cn(
                     'w-[min(92vw,32rem)] transition-[transform,opacity] duration-700 ease-out-soft [grid-area:1/1] motion-reduce:transition-none',
+                    dragPx != null && 'transition-none',
                     !isActive && Math.abs(d) <= 2 && 'cursor-pointer',
                     Math.abs(d) > 2 && 'pointer-events-none',
                   )}
-                  style={poseOf(d)}
+                  style={poseOf(d, dragPx ?? 0)}
                 >
                   <ExplodedCup
                     slots={slide.drink.slots}

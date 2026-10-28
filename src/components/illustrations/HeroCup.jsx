@@ -16,31 +16,31 @@ export default function HeroCup({ className }) {
   const gradId = useId()
 
   return (
-    <svg viewBox="0 0 420 460" role="img" aria-label="A latte with a 7 drawn in the foam, in a black 7 Degrees cup" className={className}>
+    <svg viewBox="0 0 420 460" role="img" aria-label="A latte with a 7 drawn in the foam, in a dark brown 7 Degrees cup" className={className}>
       <defs>
         <linearGradient id={gradId} x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0" stopColor="#3a3a3a" />
-          <stop offset="0.55" stopColor="#1f1f1f" />
-          <stop offset="1" stopColor="#0a0a0a" />
+          <stop offset="0" stopColor="#5a3f2e" />
+          <stop offset="0.55" stopColor="#3a2619" />
+          <stop offset="1" stopColor="#1c110b" />
         </linearGradient>
       </defs>
 
       <ellipse cx="210" cy="428" rx="175" ry="16" fill="#0a0a0a" opacity="0.12" />
 
       {/* saucer */}
-      <ellipse cx="210" cy="402" rx="178" ry="34" fill="#dcdcdc" />
+      <ellipse cx="210" cy="402" rx="178" ry="34" fill="#e6d8c6" />
       <ellipse cx="210" cy="392" rx="178" ry="30" fill="#ffffff" />
-      <ellipse cx="210" cy="390" rx="100" ry="15" fill="#ececec" />
+      <ellipse cx="210" cy="390" rx="100" ry="15" fill="#f3e9dc" />
 
       {/* handle, then body over its ends */}
-      <path d="M318 215C392 205 398 318 312 322" stroke="#1a1a1a" strokeWidth="26" fill="none" strokeLinecap="round" />
+      <path d="M318 215C392 205 398 318 312 322" stroke="#2a1a12" strokeWidth="26" fill="none" strokeLinecap="round" />
       <path d="M80 190C80 300 118 382 175 388H245C302 382 340 300 340 190Z" fill={`url(#${gradId})`} />
       <path d="M108 222C110 290 130 340 160 362" stroke="#fff" strokeOpacity="0.28" strokeWidth="10" fill="none" strokeLinecap="round" />
       {/* logo printed on the cup as white line art */}
       <image href="/Images/logo-outline-white.png" x="157" y="241" width="110" height="110" opacity="0.9" />
 
       {/* rim + latte */}
-      <ellipse cx="210" cy="190" rx="130" ry="30" fill="#444444" />
+      <ellipse cx="210" cy="190" rx="130" ry="30" fill="#5a3f2e" />
       <ellipse cx="210" cy="192" rx="118" ry="25" fill="#f6eedf" />
       <ellipse cx="210" cy="196" rx="108" ry="21" fill="#a8714a" />
       <ellipse cx="210" cy="196" rx="108" ry="21" fill="none" stroke="#c99368" strokeWidth="4" />

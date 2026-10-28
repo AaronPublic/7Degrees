@@ -15,7 +15,7 @@ function Cup({ cx, delay }) {
         style={{ animationDelay: delay, animationFillMode: 'backwards' }}
       />
       <path d={`M${cx - 12} 142H${cx + 12}L${cx + 9} 172H${cx - 9}Z`} fill="#ffffff" stroke="#0a0a0a" strokeOpacity="0.25" strokeWidth="2" />
-      <rect x={cx - 14} y="135" width="28" height="9" rx="3" fill="#111111" />
+      <rect x={cx - 14} y="135" width="28" height="9" rx="3" fill="#3b2416" />
       <rect x={cx - 11} y="152" width="22" height="9" fill="#a8714a" />
     </g>
   )
@@ -28,12 +28,12 @@ export default function CoffeeCart({ className }) {
       <ellipse cx="160" cy="302" rx="132" ry="12" fill="#0a0a0a" opacity="0.14" />
 
       {/* poles */}
-      <rect x="50" y="80" width="8" height="100" fill="#111111" />
-      <rect x="262" y="80" width="8" height="100" fill="#111111" />
+      <rect x="50" y="80" width="8" height="100" fill="#3b2416" />
+      <rect x="262" y="80" width="8" height="100" fill="#3b2416" />
 
       {/* striped, scalloped awning */}
       {STRIPES.map((i) => {
-        const fill = i % 2 ? '#f6eedf' : '#111111'
+        const fill = i % 2 ? '#f6eedf' : '#3b2416'
         const x = 40 + i * 40
         return (
           <g key={i}>
@@ -43,7 +43,7 @@ export default function CoffeeCart({ className }) {
         )
       })}
       <rect x="40" y="44" width="240" height="40" fill="none" stroke="#0a0a0a" strokeOpacity="0.2" strokeWidth="2" />
-      <rect x="32" y="34" width="256" height="12" rx="6" fill="#111111" />
+      <rect x="32" y="34" width="256" height="12" rx="6" fill="#3b2416" />
 
       {CUPS.map((cx, i) => (
         <Cup key={cx} cx={cx} delay={`${i * 1.1}s`} />
@@ -51,7 +51,7 @@ export default function CoffeeCart({ className }) {
 
       {/* counter + body */}
       <rect x="26" y="172" width="268" height="16" rx="6" fill="#8b5e3c" />
-      <rect x="36" y="186" width="248" height="86" rx="12" fill="#1f1f1f" />
+      <rect x="36" y="186" width="248" height="86" rx="12" fill="#4a2e1d" />
       <rect x="104" y="202" width="112" height="52" rx="12" fill="#ffffff" />
       <text x="160" y="226" textAnchor="middle" fontSize="18" fontWeight="800" fill="#0a0a0a">
         7°
@@ -63,8 +63,8 @@ export default function CoffeeCart({ className }) {
       {/* wheels */}
       {[88, 232].map((cx) => (
         <g key={cx}>
-          <circle cx={cx} cy="280" r="22" fill="#111111" />
-          <circle cx={cx} cy="280" r="8" fill="#dcdcdc" />
+          <circle cx={cx} cy="280" r="22" fill="#3b2416" />
+          <circle cx={cx} cy="280" r="8" fill="#e6d8c6" />
         </g>
       ))}
     </svg>

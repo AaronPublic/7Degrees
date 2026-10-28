@@ -219,3 +219,18 @@ export const location = {
   mapsUrl: 'https://maps.google.com/?q=BNG+Gas+Station+Iscundu+Masantol',
   hours: '2:00 PM – 9:00 PM',
 }
+
+// The poodle mascot's speech bubble: a greeting, then one tip per tap
+export const mascot = {
+  name: 'Mocha',
+  tips: [
+    { text: "Hi, I'm Mocha! Welcome to 7 Degrees. Tap me for tips." },
+    { text: 'Craving something creamy? The Spanish Latte is a crowd favorite.', cta: { label: 'See the menu', href: '#menu' } },
+    { text: "Okinawa milktea is my favorite. Want to see what's inside?", cta: { label: 'Take a look', href: '#recipes' } },
+    { text: 'Our coffee cart can come to your next event!', cta: { label: 'Inquire', href: '#visit' } },
+    {
+      text: `We're open ${location.hours} at ${location.address[0]}, ${location.address[1]}.`,
+      cta: { label: 'Get directions', href: location.mapsUrl, external: true },
+    },
+  ],
+}

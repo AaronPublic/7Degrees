@@ -4,11 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="7 Degrees Iscundu: cafe and silog menus, plus a coffee cart for events. Brewed in Faith, served with love." />
-    <meta name="theme-color" content="#fafafa" />
+    <meta name="theme-color" content="#faf5ee" />
     <!-- Circular logo on a transparent background; the touch icon is square (iOS rounds it) -->
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="icon" type="image/png" sizes="256x256" href="/Images/logo-circle.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Start the hero photo download before the JS bundle runs (the right size per screen) -->
+    <link
+      rel="preload"
+      as="image"
+      href="/Images/Cover-1600.jpg"
+      imagesrcset="/Images/Cover-900.jpg 900w, /Images/Cover-1600.jpg 1600w, /Images/Cover-2400.jpg 2400w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
     <title>7 Degrees</title>
   </head>
   <body>

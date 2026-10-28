@@ -62,9 +62,9 @@ export default function DrinkTopView({ liquid, foam, pattern = 'heart', label, c
         </radialGradient>
       </defs>
       <circle cx="100" cy="100" r="92" fill="#ffffff" />
-      <circle cx="100" cy="100" r="78" fill="none" stroke="#e2e2e2" strokeWidth="2" />
-      <rect x="150" y="88" width="40" height="24" rx="12" fill="#e6e6e6" />
-      <circle cx="100" cy="100" r="62" fill="#efefef" />
+      <circle cx="100" cy="100" r="78" fill="none" stroke="#eadccb" strokeWidth="2" />
+      <rect x="150" y="88" width="40" height="24" rx="12" fill="#efe3d3" />
+      <circle cx="100" cy="100" r="62" fill="#f6efe6" />
       {/* coffee surface: swirls a quarter turn when the parent .group is hovered */}
       <g className="origin-center [transform-box:fill-box] motion-safe:transition-transform motion-safe:duration-1000 motion-safe:ease-out motion-safe:group-hover:rotate-[-25deg]">
         <circle cx="100" cy="100" r="54" fill={`url(#${gradId})`} />

@@ -1,4 +1,6 @@
+import { usePauseOffscreen } from './hooks/usePauseOffscreen.js'
 import IntroLoader from './components/layout/IntroLoader.jsx'
+import Mascot from './components/layout/Mascot.jsx'
 import Navbar from './components/layout/Navbar.jsx'
 import Footer from './components/layout/Footer.jsx'
 import Hero from './components/sections/Hero.jsx'
@@ -8,6 +10,8 @@ import Menu from './components/sections/Menu.jsx'
 import CoffeeCartSection from './components/sections/CoffeeCartSection.jsx'
 
 export default function App() {
+  usePauseOffscreen()
+
   return (
     <>
       <IntroLoader />
@@ -27,6 +31,7 @@ export default function App() {
         <CoffeeCartSection />
       </main>
       <Footer />
+      <Mascot />
     </>
   )
 }

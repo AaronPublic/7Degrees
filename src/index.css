@@ -1,22 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  /* Surfaces */
-  --color-paper-50: #ffffff;
-  --color-paper-100: #fafafa; /* page background */
-  --color-paper-200: #f0f0f0; /* secondary bento / inputs */
+  /* Warm coffee palette. Contrast checked: ink-muted is ≥5:1 on paper and
+     mist, white on accent-500 is ~8:1, accent-500 text on mist-300 is ~6:1. */
 
-  /* Mist (primary containers) */
-  --color-mist-100: #f4f4f4;
-  --color-mist-200: #ececec;
-  --color-mist-300: #e4e4e4; /* main bento fill */
-  --color-mist-500: #8a8a8a; /* line art, borders */
-  --color-mist-700: #3a3a3a;
+  /* Surfaces: cream and steamed milk */
+  --color-paper-50: #fffdf9; /* cards, inputs */
+  --color-paper-100: #faf5ee; /* page background */
+  --color-paper-200: #f3e9dc; /* latte bento */
 
-  /* Accents / CTAs */
-  --color-accent-400: #2b2b2b;
-  --color-accent-500: #111111;
-  --color-accent-600: #000000;
+  /* Mist: caramel cream containers */
+  --color-mist-100: #f6efe6;
+  --color-mist-200: #efe3d3;
+  --color-mist-300: #ead9c4; /* main bento fill */
+  --color-mist-500: #a8896c; /* line art, borders */
+  --color-mist-700: #5a4232;
+
+  /* Accents / CTAs: roasted coffee */
+  --color-accent-400: #8a5a3b;
+  --color-accent-500: #6f4327;
+  --color-accent-600: #573219;
+
+  /* Errors, kept clearly apart from the browns */
+  --color-danger-600: #b42318;
 
   /* Showcase (dark roast stage + warm gold accent) */
   --color-roast-950: #120d0a;
@@ -24,8 +30,8 @@
   --color-gold-400: #d9a86c;
 
   /* Text */
-  --color-ink: #0a0a0a;
-  --color-ink-muted: #4d4d4d; /* AA on paper and mist */
+  --color-ink: #2a1a12; /* espresso */
+  --color-ink-muted: #6b5546; /* AA on paper and mist */
 
   /* Radii */
   --radius-bento: 2rem;
@@ -110,12 +116,28 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Anchor jumps land below the sticky header */
+    scroll-padding-top: 5rem;
+    -webkit-tap-highlight-color: transparent; /* buttons have their own press feedback */
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  /* Sections scrolled out of view hold their animations (see usePauseOffscreen) */
+  [data-offscreen],
+  [data-offscreen] * {
+    animation-play-state: paused !important;
   }
   body {
     @apply bg-paper-100 font-sans text-ink antialiased;
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-accent-500;
+  }
+  ::selection {
+    @apply bg-gold-400/40 text-ink;
   }
 }
 
@@ -194,6 +216,84 @@ html {
 
 @keyframes intro-wave {
   to { transform: translateX(60px); }
+}
+
+/*
+ * Mocha the poodle (Poodle.jsx, Mascot.jsx). Idle loops plus a happy state
+ * (hover / bubble open) and a hop on tap. Reduced motion: a still dog.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .mascot-enter {
+    animation: mascot-enter 0.7s var(--ease-out-soft) 0.4s both;
+  }
+  .mascot-hop {
+    animation: mascot-hop 0.5s var(--ease-out-soft);
+  }
+  .mascot-breathe {
+    animation: mascot-breathe 3.2s ease-in-out infinite;
+    transform-origin: 60px 132px;
+  }
+  .mascot-tail {
+    animation: mascot-wag 0.45s ease-in-out infinite alternate;
+    transform-origin: 80px 106px;
+  }
+  .mascot-happy .mascot-tail {
+    animation-duration: 0.16s;
+  }
+  .mascot-ear-l,
+  .mascot-ear-r {
+    animation: mascot-ear 3.2s ease-in-out infinite;
+  }
+  .mascot-ear-l {
+    transform-origin: 44px 52px;
+  }
+  .mascot-ear-r {
+    transform-origin: 76px 52px;
+    animation-direction: reverse;
+  }
+  .mascot-blink {
+    animation: mascot-blink 4.5s infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .mascot-head {
+    transition: transform 0.4s var(--ease-out-soft);
+    transform-origin: 60px 76px;
+  }
+  .mascot-happy .mascot-head {
+    transform: rotate(-8deg);
+  }
+}
+
+@keyframes mascot-enter {
+  from { opacity: 0; transform: translateY(40px) scale(0.8); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes mascot-hop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14px); }
+  70% { transform: translateY(0) scale(1.04, 0.96); }
+}
+
+@keyframes mascot-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.01, 1.025); }
+}
+
+@keyframes mascot-wag {
+  from { transform: rotate(-14deg); }
+  to { transform: rotate(16deg); }
+}
+
+@keyframes mascot-ear {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes mascot-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
 }
 
 /* Scroll reveal, driven by <Reveal>. Content stays visible when motion is reduced. */

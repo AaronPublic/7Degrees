@@ -54,11 +54,11 @@ export default function PourOverBrew({ playing, className }) {
 
       {/* dripper: base, cone, filter paper, grounds that bloom when wet */}
       <rect x="146" y="246" width="68" height="16" rx="4" fill="#1a1a1a" />
-      <path d="M100 168H260L208 246H152Z" fill="#fafafa" stroke="#0a0a0a" strokeOpacity="0.18" strokeWidth="3" strokeLinejoin="round" />
+      <path d="M100 168H260L208 246H152Z" fill="#fffdf9" stroke="#0a0a0a" strokeOpacity="0.18" strokeWidth="3" strokeLinejoin="round" />
       <path d="M112 170H248L204 236H156Z" fill="#f6eedf" />
       <path d="M121 184H239L218 214H142Z" fill="#5c3a26" />
       <ellipse className="brew-anim brew-bloom" cx="180" cy="184" rx="59" ry="7" fill="#7a4a2a" />
-      <rect x="94" y="162" width="172" height="10" rx="5" fill="#e9e9e9" stroke="#0a0a0a" strokeOpacity="0.15" strokeWidth="2" />
+      <rect x="94" y="162" width="172" height="10" rx="5" fill="#f6efe6" stroke="#0a0a0a" strokeOpacity="0.15" strokeWidth="2" />
 
       {STEAM.map((s) => (
         <path

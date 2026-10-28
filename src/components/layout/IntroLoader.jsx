@@ -7,16 +7,34 @@ import { hero } from '../../data/content.js'
 // Keep in sync with the .intro-* timings in index.css
 const POUR_MS = 2700
 const EXIT_MS = 800
+const SEEN_KEY = '7d-intro-seen'
+
+// Once per visit: reloads and returning to the tab skip straight to the page.
+// Storage can be blocked (private mode), in which case the intro just plays.
+const seenThisVisit = () => {
+  try {
+    return sessionStorage.getItem(SEEN_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+const markSeen = () => {
+  try {
+    sessionStorage.setItem(SEEN_KEY, '1')
+  } catch {
+    // ignore
+  }
+}
 
 /**
  * Full-screen page-load intro: coffee pours into a cup, then the screen slides up.
  * While it plays, <html data-intro> locks scrolling and holds the hero's own
  * animations (.intro-wait) so they start as the page is revealed.
- * Click or any key skips it; reduced motion never shows it.
+ * Click or any key skips it; reduced motion never shows it; it plays once per visit.
  */
 export default function IntroLoader() {
   const reducedMotion = usePrefersReducedMotion()
-  const [phase, setPhase] = useState(reducedMotion ? 'done' : 'pouring') // pouring | leaving | done
+  const [phase, setPhase] = useState(() => (reducedMotion || seenThisVisit() ? 'done' : 'pouring')) // pouring | leaving | done
 
   useLayoutEffect(() => {
     if (phase !== 'pouring') return
@@ -34,6 +52,7 @@ export default function IntroLoader() {
 
   useEffect(() => {
     if (phase !== 'leaving') return
+    markSeen()
     const timer = setTimeout(() => setPhase('done'), EXIT_MS)
     return () => clearTimeout(timer)
   }, [phase])

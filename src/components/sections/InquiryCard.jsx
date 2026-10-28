@@ -27,7 +27,7 @@ function validate(values) {
 const inputClass = (invalid) =>
   cn(
     'w-full min-h-12 rounded-2xl border-2 bg-paper-50 px-4 py-3 text-base placeholder:text-ink-muted/70 focus:outline-none focus-visible:border-accent-500',
-    invalid ? 'border-accent-600' : 'border-transparent',
+    invalid ? 'border-danger-600' : 'border-transparent',
   )
 
 /** Label, control and an error line wired together with aria-describedby. */
@@ -47,7 +47,7 @@ function Field({ id, label, optional, error, className, children }) {
       </label>
       {children}
       {error && (
-        <p id={`${id}-error`} className="text-sm font-medium text-accent-600">
+        <p id={`${id}-error`} className="text-sm font-medium text-danger-600">
           {error}
         </p>
       )}

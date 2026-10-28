@@ -13,7 +13,7 @@ export default function CoffeeCartSection() {
       <Container>
         <BentoCard as={Reveal} variant="paper" className="grid items-center gap-8 overflow-hidden md:gap-10 lg:grid-cols-2">
           <div className="flex flex-col items-start">
-            <p className="text-sm font-semibold tracking-widest text-ink-muted uppercase">{coffeeCart.eyebrow}</p>
+            <p className="text-sm font-semibold tracking-widest text-accent-500 uppercase">{coffeeCart.eyebrow}</p>
             <h2 id="events-title" className="mt-3 text-3xl font-extrabold tracking-tight text-balance md:text-5xl">
               {coffeeCart.title}
             </h2>

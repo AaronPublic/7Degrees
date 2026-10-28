@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 
 /**
- * Flips to true the first time the element scrolls into view, then stops watching.
+ * Tracks whether the element is in view. With `once` (the default) it flips to
+ * true the first time and stops watching; with `once: false` it follows the
+ * element in and out, e.g. to pause work while it is off screen.
  * @returns {[import('react').RefObject<Element>, boolean]}
  */
-export function useInView({ threshold = 0, rootMargin = '0px 0px -10% 0px' } = {}) {
+export function useInView({ threshold = 0, rootMargin = '0px 0px -10% 0px', once = true } = {}) {
   const ref = useRef(null)
   const [inView, setInView] = useState(false)
 
@@ -18,16 +20,20 @@ export function useInView({ threshold = 0, rootMargin = '0px 0px -10% 0px' } = {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true)
-          observer.disconnect()
+        if (once) {
+          if (entry.isIntersecting) {
+            setInView(true)
+            observer.disconnect()
+          }
+        } else {
+          setInView(entry.isIntersecting)
         }
       },
       { threshold, rootMargin },
     )
     observer.observe(node)
     return () => observer.disconnect()
-  }, [threshold, rootMargin])
+  }, [threshold, rootMargin, once])
 
   return [ref, inView]
 }

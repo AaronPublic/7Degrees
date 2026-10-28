@@ -10,7 +10,7 @@ export default function SectionHeader({ id, eyebrow, title, description, align =
   return (
     <div className={cn('flex flex-col gap-3', centered && 'items-center text-center', className)}>
       {eyebrow && (
-        <p className="text-sm font-semibold tracking-widest text-ink-muted uppercase">{eyebrow}</p>
+        <p className="text-sm font-semibold tracking-widest text-accent-500 uppercase">{eyebrow}</p>
       )}
       <h2 id={id} className="text-3xl font-extrabold tracking-tight text-balance md:text-4xl">
         {title}
