@@ -203,6 +203,14 @@ export const coffeeCart = {
   title: 'Coffee Cart for events!',
   description:
     'Bring 7 Degrees to your next celebration. Our coffee cart serves your favorite drinks right where your guests are.',
+  // The cart serves drinks only; the menu shows just these when opened from "See the menu"
+  menu: {
+    ids: ['coffee', 'milktea'],
+    eyebrow: 'Coffee cart menu',
+    title: 'Drinks for your event',
+    description: 'Pick the coffee and milktea flavors your guests will love.',
+    notice: 'These are the only drinks our coffee cart offers. Food items like burgers, silog, fries and brownies are available in-store only.',
+  },
 }
 
 export const location = {

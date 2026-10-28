@@ -23,7 +23,7 @@ export default function CoffeeCartSection() {
               <Button href="#visit" size="lg">
                 Book the coffee cart <ArrowRight className="size-5" aria-hidden="true" />
               </Button>
-              <Button href="#menu" variant="ghost" size="lg">
+              <Button href="#cart-menu" variant="ghost" size="lg">
                 See the menu
               </Button>
             </div>
