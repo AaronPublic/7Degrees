@@ -7,19 +7,24 @@ import { hero } from '../../data/content.js'
 
 export default function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="relative isolate overflow-x-clip">
+    <section aria-labelledby="hero-title" className="intro-wait relative isolate overflow-x-clip">
       <HeroBackground />
 
-      <Container className="pt-14 pb-12 md:pt-20 lg:pb-16">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
+      <Container className="pt-10 pb-12 sm:pt-14 md:pt-20 lg:pb-16 short:pt-6">
+        <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-8 short:grid-cols-[3fr_2fr] short:gap-6">
           <div className="flex flex-col items-start text-white">
-            <h1 id="hero-title" className="text-display font-extrabold tracking-tight text-balance">
+            <h1 id="hero-title" className="text-display font-extrabold tracking-tight text-balance motion-safe:animate-rise">
               {hero.title} <span className="text-white/70">{hero.titleAccent}</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-lg text-white/85">{hero.subtitle}</p>
+            <p className="mt-6 max-w-xl text-lg text-white/85 motion-safe:animate-rise" style={{ animationDelay: '120ms' }}>
+              {hero.subtitle}
+            </p>
 
-            <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <div
+              className="mt-8 flex w-full flex-col gap-3 motion-safe:animate-rise sm:w-auto sm:flex-row sm:flex-wrap"
+              style={{ animationDelay: '240ms' }}
+            >
               <Button href="#menu" size="lg" className="bg-white text-ink hover:bg-paper-200">
                 Order now <ArrowRight className="size-5" aria-hidden="true" />
               </Button>
@@ -33,7 +38,7 @@ export default function Hero() {
               </Button>
             </div>
 
-            <dl className="mt-10 flex flex-wrap gap-x-10 gap-y-4">
+            <dl className="mt-10 flex flex-wrap gap-x-10 gap-y-4 motion-safe:animate-rise" style={{ animationDelay: '360ms' }}>
               {hero.stats.map((stat) => (
                 <div key={stat.label} className="flex flex-col-reverse">
                   <dt className="text-sm text-white/75">{stat.label}</dt>
@@ -69,7 +74,7 @@ function HeroBackground() {
 
 function HeroVisual() {
   return (
-    <div className="relative isolate mx-auto aspect-square w-full max-w-md lg:max-w-none">
+    <div className="relative isolate mx-auto aspect-square w-full max-w-xs sm:max-w-md lg:max-w-none short:max-w-64">
       <Blob variant="hero" className="absolute inset-[4%] -z-10 text-white/15 motion-safe:animate-breathe" />
       <HeroCup className="relative -mt-[6%] -ml-[6%] w-[112%] max-w-none drop-shadow-2xl" />
     </div>

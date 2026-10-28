@@ -35,7 +35,7 @@ function LatteArt({ pattern, foam, liquid }) {
   )
 }
 
-/** Top-down cup on a saucer, used inside circular product images. */
+/** Top-down cup on a saucer, used inside circular product images. The surface swirls on .group hover. */
 export default function DrinkTopView({ liquid, foam, pattern = 'heart', label, className }) {
   const gradId = useId()
 
@@ -51,9 +51,12 @@ export default function DrinkTopView({ liquid, foam, pattern = 'heart', label, c
       <circle cx="100" cy="100" r="78" fill="none" stroke="#e2e2e2" strokeWidth="2" />
       <rect x="150" y="88" width="40" height="24" rx="12" fill="#e6e6e6" />
       <circle cx="100" cy="100" r="62" fill="#efefef" />
-      <circle cx="100" cy="100" r="54" fill={`url(#${gradId})`} />
-      <circle cx="100" cy="100" r="52" fill="none" stroke={foam} strokeOpacity="0.45" strokeWidth="4" />
-      <LatteArt pattern={pattern} foam={foam} liquid={liquid} />
+      {/* coffee surface: swirls a quarter turn when the parent .group is hovered */}
+      <g className="origin-center [transform-box:fill-box] motion-safe:transition-transform motion-safe:duration-1000 motion-safe:ease-out motion-safe:group-hover:rotate-[-25deg]">
+        <circle cx="100" cy="100" r="54" fill={`url(#${gradId})`} />
+        <circle cx="100" cy="100" r="52" fill="none" stroke={foam} strokeOpacity="0.45" strokeWidth="4" />
+        <LatteArt pattern={pattern} foam={foam} liquid={liquid} />
+      </g>
       <Bean x={42} y={160} rotate={-30} scale={0.7} />
     </svg>
   )

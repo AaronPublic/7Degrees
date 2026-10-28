@@ -1,6 +1,7 @@
 import Container from '../ui/Container.jsx'
 import SectionHeader from '../ui/SectionHeader.jsx'
 import MenuCard from '../ui/MenuCard.jsx'
+import Reveal from '../ui/Reveal.jsx'
 import { menu } from '../../data/content.js'
 
 // Bento placement on the 4-column desktop grid:
@@ -18,19 +19,26 @@ const layout = {
 
 export default function Menu() {
   return (
-    <section id="menu" aria-labelledby="menu-title" className="scroll-mt-6">
+    <section id="menu" aria-labelledby="menu-title" className="pt-12 md:pt-16">
       <Container>
-        <SectionHeader
-          id="menu-title"
-          align="center"
-          eyebrow="Made to order"
-          title="Our menu"
-          description="Coffee, milktea, burgers, silog and sweets, all freshly prepared."
-        />
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {menu.map((category) => (
-            <MenuCard key={category.id} {...category} {...layout[category.id]} />
-          ))}
+        <Reveal>
+          <SectionHeader
+            id="menu-title"
+            align="center"
+            eyebrow="Made to order"
+            title="Our menu"
+            description="Coffee, milktea, burgers, silog and sweets, all freshly prepared."
+          />
+        </Reveal>
+        <div className="mt-10 grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {menu.map((category, i) => {
+            const { variant, className } = layout[category.id]
+            return (
+              <Reveal key={category.id} delay={(i % 2) * 80} className={className}>
+                <MenuCard {...category} variant={variant} className="h-full" />
+              </Reveal>
+            )
+          })}
         </div>
       </Container>
     </section>

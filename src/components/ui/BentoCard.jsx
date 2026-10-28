@@ -8,7 +8,7 @@ const surfaces = {
 
 const paddings = {
   none: '',
-  default: 'p-6 md:p-10 lg:p-14',
+  default: 'p-5 sm:p-6 md:p-10 lg:p-14',
 }
 
 /**

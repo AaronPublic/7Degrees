@@ -74,8 +74,19 @@ export default function DrinkGlass({
               transform={`rotate(${cube.r} ${cube.x + cube.w / 2} ${cube.y + cube.h / 2})`}
             />
           ))}
+        {/* pearls bob in the tea when the parent .group is hovered */}
         {pearls &&
-          PEARLS.map(([cx, cy]) => <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="7" fill="#3b2416" />)}
+          PEARLS.map(([cx, cy], i) => (
+            <circle
+              key={`${cx}-${cy}`}
+              cx={cx}
+              cy={cy}
+              r="7"
+              fill="#3b2416"
+              className="motion-safe:group-hover:animate-bob"
+              style={{ animationDelay: `${(i % 4) * 0.15}s` }}
+            />
+          ))}
       </g>
 
       <rect x="118" y="4" width="10" height="150" rx="5" fill="#1a1a1a" transform="rotate(12 123 79)" />

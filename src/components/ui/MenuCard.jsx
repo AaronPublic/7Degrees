@@ -37,9 +37,9 @@ export default function MenuCard({
       as="article"
       variant={variant}
       aria-labelledby={headingId}
-      className={cn('flex flex-col gap-6 p-6 md:p-8 lg:p-8', className)}
+      className={cn('group flex flex-col gap-6 p-5 sm:p-6 md:p-8 lg:p-8', className)}
     >
-      <header className="flex items-start justify-between gap-4">
+      <header className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
         <div className="flex items-center gap-3">
           <span
             className="grid size-12 shrink-0 place-items-center rounded-full"
@@ -88,7 +88,7 @@ export default function MenuCard({
           )}
 
           {sizes && (
-            <ul className="grid grid-cols-3 gap-2">
+            <ul className="grid grid-cols-[repeat(auto-fit,minmax(5.5rem,1fr))] gap-2">
               {sizes.map((s) => (
                 <li key={s.name} className="rounded-2xl bg-paper-50 px-2 py-3 text-center">
                   <p className="text-sm text-ink-muted">{s.name}</p>
@@ -113,7 +113,7 @@ export default function MenuCard({
         </div>
 
         {art && (
-          <div className="hidden w-28 shrink-0 self-center sm:block md:w-24 xl:w-32">
+          <div className="hidden w-28 shrink-0 self-center transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:-rotate-3 motion-reduce:transition-none sm:block md:w-24 xl:w-32">
             <MenuArt art={art} title={title} />
           </div>
         )}

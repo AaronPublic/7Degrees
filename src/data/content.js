@@ -1,4 +1,4 @@
-import { Bean, CakeSlice, Coffee, CupSoda, EggFried, Flame, Hamburger, Leaf, Popcorn, Timer } from 'lucide-react'
+import { CakeSlice, Coffee, CupSoda, Droplet, EggFried, Hamburger, Popcorn, Sprout, Waves } from 'lucide-react'
 
 // Icon colours: fg = icon stroke, bg = soft circle behind it
 const tints = {
@@ -8,12 +8,11 @@ const tints = {
   silog: { fg: '#b8860b', bg: '#fbf0cf' },
   fries: { fg: '#c0392b', bg: '#fbe1dd' },
   brownies: { fg: '#5c3a26', bg: '#efe3da' },
-  leaf: { fg: '#4f7a3a', bg: '#e3f0da' },
 }
 
 export const navLinks = [
   { label: 'Menu', href: '#menu' },
-  { label: 'About', href: '#about' },
+  { label: 'About', href: '#brew' },
   { label: 'Events', href: '#events' },
   { label: 'Visit', href: '#visit' },
 ]
@@ -28,32 +27,83 @@ export const hero = {
   ],
 }
 
-export const features = [
-  {
-    icon: Bean,
-    tint: tints.coffee,
-    title: 'Single-origin beans',
-    body: 'Traceable lots from twelve partner farms, bought direct at above-market prices.',
-  },
-  {
-    icon: Flame,
-    tint: tints.burger,
-    title: 'Roasted in-house',
-    body: 'Small batches every Tuesday, so nothing on our shelf is older than a week.',
-  },
-  {
-    icon: Leaf,
-    tint: tints.leaf,
-    title: 'Plant milks, no upcharge',
-    body: 'Oat, almond or soy in any drink, always at the same price.',
-  },
-  {
-    icon: Timer,
-    tint: tints.silog,
-    title: 'Ready in 5 minutes',
-    body: 'Order ahead online and grab your cup from the pickup shelf.',
-  },
-]
+export const brewing = {
+  eyebrow: 'Brewed fresh',
+  title: 'Every cup, brewed to order',
+  description: 'From the first pour to the last drop, this is how your coffee comes together.',
+  steps: [
+    { icon: Sprout, title: 'Bloom', body: 'A first splash of hot water wakes up the grounds.' },
+    { icon: Waves, title: 'Pour', body: 'A slow, steady pour draws out the flavor.' },
+    { icon: Droplet, title: 'Drip', body: 'Coffee filters through, drop by drop.' },
+    { icon: Coffee, title: 'Serve', body: 'Poured hot and handed to you with a smile.' },
+  ],
+}
+
+/**
+ * Exploded-view recipes for the "What's inside" section. Each drink lists its
+ * layer slots top to bottom (shapes live in ExplodedCup.jsx); `common` layers
+ * are in every flavor, and each flavor fills in the rest. A slot a flavor
+ * leaves out is drawn as an empty outline. Flavor names match `menu` options.
+ */
+const espresso = { label: 'Espresso', note: 'Freshly pulled shots', color: '#4a2a17' }
+const freshMilk = { label: 'Fresh milk', note: 'Cold and creamy', color: '#f4ede1' }
+
+export const recipes = {
+  eyebrow: 'Recipe breakdown',
+  title: "What's inside your cup",
+  description: 'Every flavor, layer by layer. Swipe or pick a flavor to take a closer look.',
+  drinks: [
+    {
+      id: 'coffee',
+      slots: ['lid', 'topping', 'espresso', 'ice', 'base', 'sweetener', 'cup'],
+      common: {
+        lid: { label: 'Lid', note: 'Sip-ready' },
+        ice: { label: 'Ice', note: 'Keeps it cold to the last sip' },
+        cup: { label: '16 oz cup' },
+      },
+      flavors: {
+        Americano: {
+          espresso,
+          base: { label: 'Cold water', note: 'Opens up the espresso', color: '#b98a5e' },
+        },
+        'Brown Sugar Latte': {
+          espresso,
+          base: freshMilk,
+          sweetener: { label: 'Brown sugar syrup', note: 'Deep, toasty sweetness', color: '#8b4a1c' },
+        },
+        'Caramel Macchiato': {
+          topping: { label: 'Caramel drizzle', note: 'Finished on top', color: '#c27c2c' },
+          espresso,
+          base: freshMilk,
+          sweetener: { label: 'Vanilla syrup', note: 'Smooth and mellow', color: '#ead9b0' },
+        },
+        'Spanish Latte': {
+          espresso,
+          base: freshMilk,
+          sweetener: { label: 'Condensed milk', note: 'Rich and creamy-sweet', color: '#f3e3bf' },
+        },
+      },
+    },
+    {
+      id: 'milktea',
+      slots: ['lid', 'tea', 'milk', 'ice', 'pearls', 'cup'],
+      common: {
+        lid: { label: 'Sealed top', note: 'Poke a straw through' },
+        milk: { label: 'Milk', note: 'For a creamy finish', color: '#f4ede1' },
+        ice: { label: 'Ice', note: 'Shaken in to chill' },
+        pearls: { label: 'Tapioca pearls', note: 'Chewy and sweet' },
+        cup: { label: '16 oz cup' },
+      },
+      flavors: {
+        Chocolate: { tea: { label: 'Chocolate tea', note: 'Rich cocoa blend', color: '#6b4226' } },
+        Matcha: { tea: { label: 'Matcha', note: 'Earthy green tea', color: '#7fa650' } },
+        Okinawa: { tea: { label: 'Okinawa tea', note: 'Roasted brown sugar notes', color: '#a8714a' } },
+        Taro: { tea: { label: 'Taro', note: 'Nutty and creamy', color: '#a98bc9' } },
+        Wintermelon: { tea: { label: 'Wintermelon tea', note: 'Light caramel sweetness', color: '#c9a46a' } },
+      },
+    },
+  ],
+}
 
 /**
  * Menu categories. Each card can show any of:

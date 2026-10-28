@@ -1,9 +1,19 @@
 const STRIPES = [0, 1, 2, 3, 4, 5]
 const CUPS = [92, 132, 228]
 
-function Cup({ cx }) {
+function Cup({ cx, delay }) {
   return (
     <g>
+      <path
+        d={`M${cx} 130C${cx - 7} 121 ${cx + 7} 114 ${cx} 104`}
+        stroke="#8a8a8a"
+        strokeOpacity="0.7"
+        strokeWidth="3"
+        strokeLinecap="round"
+        fill="none"
+        className="motion-safe:animate-steam"
+        style={{ animationDelay: delay, animationFillMode: 'backwards' }}
+      />
       <path d={`M${cx - 12} 142H${cx + 12}L${cx + 9} 172H${cx - 9}Z`} fill="#ffffff" stroke="#0a0a0a" strokeOpacity="0.25" strokeWidth="2" />
       <rect x={cx - 14} y="135" width="28" height="9" rx="3" fill="#111111" />
       <rect x={cx - 11} y="152" width="22" height="9" fill="#a8714a" />
@@ -11,7 +21,7 @@ function Cup({ cx }) {
   )
 }
 
-/** Striped-awning coffee cart with cups on the counter. */
+/** Striped-awning coffee cart with steaming cups on the counter. */
 export default function CoffeeCart({ className }) {
   return (
     <svg viewBox="0 0 320 320" role="img" aria-label="7 Degrees coffee cart" className={className}>
@@ -35,8 +45,8 @@ export default function CoffeeCart({ className }) {
       <rect x="40" y="44" width="240" height="40" fill="none" stroke="#0a0a0a" strokeOpacity="0.2" strokeWidth="2" />
       <rect x="32" y="34" width="256" height="12" rx="6" fill="#111111" />
 
-      {CUPS.map((cx) => (
-        <Cup key={cx} cx={cx} />
+      {CUPS.map((cx, i) => (
+        <Cup key={cx} cx={cx} delay={`${i * 1.1}s`} />
       ))}
 
       {/* counter + body */}

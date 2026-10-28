@@ -18,6 +18,11 @@
   --color-accent-500: #111111;
   --color-accent-600: #000000;
 
+  /* Showcase (dark roast stage + warm gold accent) */
+  --color-roast-950: #120d0a;
+  --color-roast-800: #2e2119;
+  --color-gold-400: #d9a86c;
+
   /* Text */
   --color-ink: #0a0a0a;
   --color-ink-muted: #4d4d4d; /* AA on paper and mist */
@@ -36,8 +41,49 @@
   --shadow-soft: 0 10px 30px -12px rgb(0 0 0 / 0.14);
 
   /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --animate-breathe: breathe 14s ease-in-out infinite;
   --animate-steam: steam 3.2s ease-in-out infinite;
+  --animate-rise: rise 0.8s var(--ease-out-soft) both;
+  --animate-bob: bob 1.6s ease-in-out infinite;
+  --animate-float: float 3.6s ease-in-out infinite;
+  /* Hero intro: milk pours in, ripples spread, latte art blooms */
+  --animate-milk-pour: milk-pour 2.2s ease-in-out 0.3s both;
+  --animate-ripple: ripple 0.9s ease-out 0.5s 2 both;
+  --animate-latte-art: latte-art 1.4s var(--ease-out-soft) 0.8s both;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @keyframes milk-pour {
+    0% { transform: scaleY(0); opacity: 1; }
+    20% { transform: scaleY(1); }
+    70% { opacity: 1; }
+    85%, 100% { transform: scaleY(1); opacity: 0; }
+  }
+
+  @keyframes ripple {
+    0% { transform: scale(0.2); opacity: 0; }
+    25% { opacity: 0.8; }
+    100% { transform: scale(1); opacity: 0; }
+  }
+
+  @keyframes latte-art {
+    from { transform: scale(0.15); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
 
   @keyframes breathe {
     0%, 100% { transform: rotate(0deg) scale(1); }
@@ -50,6 +96,9 @@
     100% { transform: translateY(-14px); opacity: 0; }
   }
 }
+
+/* Phones held sideways: little height, so shrink tall visuals */
+@custom-variant short (@media (orientation: landscape) and (max-height: 520px));
 
 @utility no-scrollbar {
   scrollbar-width: none;
@@ -68,4 +117,180 @@
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-accent-500;
   }
+}
+
+/*
+ * Page-load intro (IntroLoader.jsx + PouringCup.jsx), ~2.7s then a 0.8s exit:
+ *   0–0.5s cup settles · 0.3–0.8s coffee streams down · 0.55–2.2s cup fills
+ *   2.1–2.7s stream tail drops in · 1.3s text fades up · 1.9s+ steam
+ */
+html {
+  scrollbar-gutter: stable;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-intro] {
+    overflow: hidden;
+  }
+  html[data-intro] .intro-wait,
+  html[data-intro] .intro-wait * {
+    animation-play-state: paused !important;
+  }
+
+  .intro-screen {
+    transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  .intro-content {
+    transition: opacity 0.4s ease-in, transform 0.6s ease-in;
+  }
+  .intro-leave {
+    transform: translateY(-100%);
+  }
+  .intro-leave .intro-content {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+
+  .intro-cup {
+    animation: intro-fade-up 0.5s var(--ease-out-soft) both;
+  }
+  .intro-stream {
+    stroke-dasharray: 1;
+    animation: intro-stream 2.4s ease-in-out 0.3s both;
+  }
+  .intro-level {
+    animation: intro-level 1.65s cubic-bezier(0.3, 0.6, 0.4, 1) 0.55s both;
+  }
+  .intro-wave {
+    animation: intro-wave 1.4s linear infinite;
+  }
+  .intro-wave-back {
+    animation: intro-wave 2.2s linear infinite reverse;
+  }
+  .intro-text {
+    animation: intro-fade-up 0.8s var(--ease-out-soft) 1.3s both;
+  }
+  .intro-steam {
+    animation: steam 3.2s ease-in-out infinite backwards;
+  }
+}
+
+@keyframes intro-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* pathLength=1: draws down from the top, holds, then the tail falls into the cup */
+@keyframes intro-stream {
+  0% { stroke-dashoffset: 1; }
+  20%, 75% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -1; }
+}
+
+@keyframes intro-level {
+  from { transform: translateY(140px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes intro-wave {
+  to { transform: translateX(60px); }
+}
+
+/* Scroll reveal, driven by <Reveal>. Content stays visible when motion is reduced. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition:
+      opacity 0.7s var(--ease-out-soft),
+      transform 0.7s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  [data-reveal='hidden'] {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+/*
+ * Pour-over brew scene (PourOverBrew.jsx). One 6s timeline, started by
+ * [data-brewing]; step timings in Brewing.jsx follow these numbers.
+ *   0–0.6s kettle tips · 0.5–5s water pours · 0–1.8s grounds bloom
+ *   1.6–5.6s coffee drips · 1.7–6.1s carafe fills · 5.6s+ steam rises
+ * Without motion, the SVG's drawn state (mid-pour, full carafe) shows as is.
+ */
+.brew-flow {
+  stroke-dasharray: 6 10;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .brew-kettle {
+    animation: brew-kettle 6s ease-in-out;
+    transform-origin: 290px 100px;
+  }
+  .brew-stream {
+    animation: brew-stream 6s linear;
+    transform-box: fill-box;
+    transform-origin: top;
+  }
+  .brew-flow {
+    animation: brew-flow 0.5s linear infinite;
+  }
+  .brew-bloom {
+    animation: brew-bloom 6s ease-out;
+    transform-box: fill-box;
+    transform-origin: bottom;
+  }
+  .brew-drip {
+    animation: brew-drip 0.8s ease-in 5;
+  }
+  .brew-fill {
+    animation: brew-fill 4.4s ease-out 1.7s;
+    transform-box: fill-box;
+    transform-origin: bottom;
+  }
+  .brew-steam {
+    animation: steam 3.2s ease-in-out infinite;
+  }
+
+  /* After the shorthands above, so these win */
+  .brew-anim {
+    animation-fill-mode: both;
+    animation-play-state: paused;
+  }
+  [data-brewing] .brew-anim {
+    animation-play-state: running;
+  }
+}
+
+@keyframes brew-kettle {
+  0% { transform: rotate(20deg); }
+  10%, 85% { transform: rotate(0deg); }
+  100% { transform: rotate(20deg); }
+}
+
+@keyframes brew-stream {
+  0%, 8% { transform: scaleY(0); opacity: 1; }
+  14% { transform: scaleY(1); }
+  82% { opacity: 1; }
+  88%, 100% { transform: scaleY(1); opacity: 0; }
+}
+
+@keyframes brew-flow {
+  to { stroke-dashoffset: -16; }
+}
+
+@keyframes brew-bloom {
+  0%, 12% { transform: scale(1, 0.4); }
+  30% { transform: scale(1.04, 1.8); }
+  45%, 100% { transform: scale(1, 1); }
+}
+
+@keyframes brew-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  15%, 80% { opacity: 1; }
+  100% { transform: translateY(30px); opacity: 0; }
+}
+
+@keyframes brew-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
 }

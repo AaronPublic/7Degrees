@@ -20,7 +20,7 @@ function InfoRow({ icon: Icon, title, children }) {
 export default function LocationCard() {
   return (
     <BentoCard variant="mist" className="flex h-full flex-col">
-      <h2 className="text-3xl font-extrabold tracking-tight">Visit {location.name}</h2>
+      <h2 className="text-3xl font-extrabold tracking-tight text-balance">Visit {location.name}</h2>
 
       <div className="mt-8 flex flex-col gap-6">
         <InfoRow icon={MapPin} title="Address">

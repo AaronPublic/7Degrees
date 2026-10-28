@@ -18,7 +18,8 @@ const sizes = {
  */
 export default function Button({ href, variant = 'primary', size = 'md', className, children, ...props }) {
   const classes = cn(
-    'inline-flex items-center justify-center gap-2 rounded-pill font-semibold whitespace-nowrap transition-colors duration-200',
+    // Labels may wrap on the narrowest phones instead of overflowing; press feedback scales slightly
+    'inline-flex min-h-11 cursor-pointer touch-manipulation items-center justify-center gap-2 rounded-pill text-center font-semibold transition-[color,background-color,border-color,scale] duration-200 motion-safe:active:scale-[0.97] sm:whitespace-nowrap',
     variants[variant],
     sizes[size],
     className,
