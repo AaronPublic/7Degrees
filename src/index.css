@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  /* Surfaces */
+  --color-paper-50: #ffffff;
+  --color-paper-100: #fafafa; /* page background */
+  --color-paper-200: #f0f0f0; /* secondary bento / inputs */
+
+  /* Mist (primary containers) */
+  --color-mist-100: #f4f4f4;
+  --color-mist-200: #ececec;
+  --color-mist-300: #e4e4e4; /* main bento fill */
+  --color-mist-500: #8a8a8a; /* line art, borders */
+  --color-mist-700: #3a3a3a;
+
+  /* Accents / CTAs */
+  --color-accent-400: #2b2b2b;
+  --color-accent-500: #111111;
+  --color-accent-600: #000000;
+
+  /* Text */
+  --color-ink: #0a0a0a;
+  --color-ink-muted: #4d4d4d; /* AA on paper and mist */
+
+  /* Radii */
+  --radius-bento: 2rem;
+  --radius-bento-sm: 1.5rem;
+  --radius-pill: 9999px;
+
+  /* Type */
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --text-display: clamp(2.5rem, 4.5vw + 1rem, 4.5rem);
+  --text-display--line-height: 1.05;
+
+  /* Soft UI shadow */
+  --shadow-soft: 0 10px 30px -12px rgb(0 0 0 / 0.14);
+
+  /* Motion */
+  --animate-breathe: breathe 14s ease-in-out infinite;
+  --animate-steam: steam 3.2s ease-in-out infinite;
+
+  @keyframes breathe {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(6deg) scale(1.04); }
+  }
+
+  @keyframes steam {
+    0% { transform: translateY(8px); opacity: 0; }
+    40% { opacity: 1; }
+    100% { transform: translateY(-14px); opacity: 0; }
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper-100 font-sans text-ink antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-500;
+  }
+}
