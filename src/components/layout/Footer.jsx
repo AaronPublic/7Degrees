@@ -1,6 +1,6 @@
 import Container from '../ui/Container.jsx'
 import LocationCard from '../sections/LocationCard.jsx'
-import NewsletterCard from '../sections/NewsletterCard.jsx'
+import InquiryCard from '../sections/InquiryCard.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import Logo from './Logo.jsx'
 
@@ -13,7 +13,7 @@ export default function Footer() {
             <LocationCard />
           </Reveal>
           <Reveal delay={80}>
-            <NewsletterCard />
+            <InquiryCard />
           </Reveal>
         </div>
 

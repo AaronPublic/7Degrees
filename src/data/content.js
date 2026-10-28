@@ -123,7 +123,7 @@ export const menu = [
     options: ['Americano', 'Brown Sugar Latte', 'Caramel Macchiato', 'Spanish Latte'],
     size: '16 oz',
     price: 80,
-    art: { type: 'cup', liquid: '#a0693f', foam: '#f6e7d2', pattern: 'heart' },
+    art: { type: 'cup', liquid: '#a0693f', foam: '#f6e7d2', pattern: 'seven' },
   },
   {
     id: 'milktea',

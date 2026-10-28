@@ -10,13 +10,13 @@ const steam = [
 
 /**
  * Black latte cup on a saucer, sized to overflow its blob in the hero.
- * On load, milk pours in and the heart latte art blooms; reduced motion shows the finished cup.
+ * On load, milk pours in and the "7" latte art blooms; reduced motion shows the finished cup.
  */
 export default function HeroCup({ className }) {
   const gradId = useId()
 
   return (
-    <svg viewBox="0 0 420 460" role="img" aria-label="A latte with heart art in a black cup" className={className}>
+    <svg viewBox="0 0 420 460" role="img" aria-label="A latte with a 7 drawn in the foam, in a black 7 Degrees cup" className={className}>
       <defs>
         <linearGradient id={gradId} x1="0" x2="1" y1="0" y2="0">
           <stop offset="0" stopColor="#3a3a3a" />
@@ -36,9 +36,8 @@ export default function HeroCup({ className }) {
       <path d="M318 215C392 205 398 318 312 322" stroke="#1a1a1a" strokeWidth="26" fill="none" strokeLinecap="round" />
       <path d="M80 190C80 300 118 382 175 388H245C302 382 340 300 340 190Z" fill={`url(#${gradId})`} />
       <path d="M108 222C110 290 130 340 160 362" stroke="#fff" strokeOpacity="0.28" strokeWidth="10" fill="none" strokeLinecap="round" />
-      <text x="210" y="304" textAnchor="middle" fontSize="44" fontWeight="800" fill="#ffffff" opacity="0.9">
-        7°
-      </text>
+      {/* logo printed on the cup as white line art */}
+      <image href="/Images/logo-outline-white.png" x="157" y="241" width="110" height="110" opacity="0.9" />
 
       {/* rim + latte */}
       <ellipse cx="210" cy="190" rx="130" ry="30" fill="#444444" />
@@ -55,10 +54,14 @@ export default function HeroCup({ className }) {
         strokeWidth="3"
         className="origin-center opacity-0 [transform-box:fill-box] motion-safe:animate-ripple"
       />
+      {/* latte art "7", drawn upright then flattened onto the coffee surface */}
       <g transform="translate(210 196) scale(1 0.32)">
         <path
-          d="M0 52C-42 26 -50 -12 -26 -24C-12 -31 -2 -22 0 -12C2 -22 12 -31 26 -24C50 -12 42 26 0 52Z"
+          d="M-34 -40H34V-20L4 50H-14L14 -16H-34Z"
           fill="#f6e7d2"
+          stroke="#f6e7d2"
+          strokeWidth="8"
+          strokeLinejoin="round"
           className="origin-center [transform-box:fill-box] motion-safe:animate-latte-art"
         />
       </g>

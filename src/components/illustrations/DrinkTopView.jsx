@@ -2,6 +2,20 @@ import { useId } from 'react'
 import Bean from './Bean.jsx'
 
 function LatteArt({ pattern, foam, liquid }) {
+  // Same "7" shape as the hero cup's latte art, seen straight from above
+  if (pattern === 'seven') {
+    return (
+      <path
+        d="M-34 -40H34V-20L4 50H-14L14 -16H-34Z"
+        transform="translate(100 98) scale(0.75)"
+        fill={foam}
+        stroke={foam}
+        strokeWidth="8"
+        strokeLinejoin="round"
+      />
+    )
+  }
+
   if (pattern === 'heart') {
     return (
       <path
